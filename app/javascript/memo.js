@@ -1,4 +1,4 @@
-function ajax() {
+function memo() {
   const submit = document.getElementById("submit");
 
   submit.addEventListener("click", (e) => {
@@ -7,15 +7,18 @@ function ajax() {
 
     // openでリクエストを初期化する
     XHR.open("POST", "/posts", true);
-
     // レスポンスのタイプを指定
     XHR.responseType = "json";
-
     // sendでリクエストを送信する
     XHR.send(formData);
 
     // レスポンスを受け取った時
     XHR.onload = () => {
+      if (XHR.status != 200) {
+        // レスポンスの HTTP ステータスを解析
+        alert(`Error ${XHR.status}: ${XHR.statusText}`); // e.g. 404: Not Found
+        return null;
+      }
       const item = XHR.response.post;
       const list = document.getElementById("list");
       const formText = document.getElementById("content");
@@ -31,13 +34,6 @@ function ajax() {
       list.insertAdjacentHTML("afterend", HTML);
 
       formText.value = "";
-
-      if (XHR.status != 200) {
-        // レスポンスの HTTP ステータスを解析
-        alert(`Error ${XHR.status}: ${XHR.statusText}`); // e.g. 404: Not Found
-      } else {
-        return null;
-      }
     };
 
     // リクエストが送信できなかった時
@@ -49,4 +45,4 @@ function ajax() {
   });
 }
 
-window.addEventListener("load", ajax);
+window.addEventListener("load", memo);
