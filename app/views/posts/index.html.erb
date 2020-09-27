@@ -1,4 +1,4 @@
-<h1>FirstAPP</h1>
+<h1>AjaxAPP</h1>
 <%= form_with url: "#", method: :post,id: "form" do |form| %>
   <%= form.text_field :content %>
   <%= form.submit '投稿する' , id: "submit" %>
@@ -6,6 +6,7 @@
 
 <div id="list">
 </div>
+
 <% @posts.each do |post| %>
   <div class="post" data-id = <%= post.id %> data-check=<%= post.checked %>>
     <div class="post-date">
